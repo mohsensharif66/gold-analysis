@@ -1,0 +1,13 @@
+requests>=2.32.0
+pandas>=2.2.0
+numpy>=1.26.0
+yfinance>=0.2.50
+yfinance-ir
+loguru>=0.7.3
+python-dotenv>=1.0.1
+pytest>=8.0.0
+scipy>=1.11.0
+scikit-learn>=1.4.0
+# optional (enable extra models when installed; the app works without them):
+# statsmodels>=0.14.0   -> ARIMA(1,0,1)
+# xgboost>=2.0.0        -> XGBoost instead of sklearn gradient boosting

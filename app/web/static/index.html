@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GoldTrend Pro</title>
+<style>
+:root{--bg:#f4f6f9;--panel:#fff;--panel2:#eef1f6;--text:#1b2330;--muted:#6b7585;--line:#dde2ea;--gold:#b8860b;--up:#0f9d58;--down:#d93025;--warn:#e08a00;--accent:#2f5bea;--shadow:0 1px 3px rgba(20,30,50,.08)}
+:root[data-theme=dark]{--bg:#0e131b;--panel:#161d28;--panel2:#1d2635;--text:#e6ebf3;--muted:#8d9ab0;--line:#27324a;--gold:#e6b84a;--up:#26c281;--down:#ff5c5c;--warn:#f0a63a;--accent:#6c8cff;--shadow:none}
+*{box-sizing:border-box}html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--text);font-family:Vazirmatn,"IRANSans","Segoe UI",Tahoma,sans-serif;font-size:14px}
+#app{display:grid;grid-template-columns:210px 1fr;grid-template-rows:54px 1fr;height:100vh}
+header{grid-column:1/3;display:flex;align-items:center;gap:14px;padding:0 16px;background:var(--panel);border-bottom:1px solid var(--line)}
+.logo{font-weight:800;font-size:17px;color:var(--gold)}.logo small{color:var(--muted);font-weight:400;font-size:11px;margin-right:6px}
+.sp{flex:1}.pill{padding:3px 10px;border-radius:12px;background:var(--panel2);font-size:12px;color:var(--muted);white-space:nowrap}
+.pill.ok{color:var(--up)}.pill.bad{color:var(--down)}.pill.warn{color:var(--warn)}
+button,select,input{font:inherit;color:var(--text);background:var(--panel2);border:1px solid var(--line);border-radius:7px;padding:5px 10px;cursor:pointer}
+button:hover{border-color:var(--accent)}button.pri{background:var(--accent);color:#fff;border-color:var(--accent)}
+button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+nav{background:var(--panel);border-left:1px solid var(--line);padding:10px 8px;overflow:auto}
+nav a{display:block;padding:9px 12px;border-radius:8px;color:var(--text);text-decoration:none;margin-bottom:2px}
+nav a:hover{background:var(--panel2)}nav a.act{background:var(--accent);color:#fff}
+main{overflow:auto;padding:16px}
+.grid{display:grid;gap:12px}.g4{grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}.g2{grid-template-columns:repeat(auto-fit,minmax(340px,1fr))}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;box-shadow:var(--shadow)}
+.card h3{margin:0 0 8px;font-size:13px;color:var(--muted);font-weight:600}
+.big{font-size:22px;font-weight:700;direction:ltr;text-align:right}.up{color:var(--up)}.down{color:var(--down)}.muted{color:var(--muted)}.warn{color:var(--warn)}
+.sig{display:inline-block;padding:6px 18px;border-radius:10px;font-weight:800;font-size:20px;letter-spacing:1px}
+.sig.BUY{background:var(--up);color:#fff}.sig.SELL{background:var(--down);color:#fff}.sig.HOLD{background:var(--panel2);color:var(--text);border:1px solid var(--line)}
+table{width:100%;border-collapse:collapse}th,td{padding:6px 8px;text-align:right;border-bottom:1px solid var(--line);font-size:13px}th{color:var(--muted);font-weight:600}
+td.n{direction:ltr;text-align:left}
+.bar{height:10px;border-radius:5px;background:linear-gradient(90deg,var(--down),var(--panel2) 50%,var(--up));position:relative}
+.bar i{position:absolute;top:-4px;width:4px;height:18px;background:var(--text);border-radius:2px;transform:translateX(-2px)}
+.chartwrap{position:relative}canvas{width:100%;display:block;border-radius:8px}
+.tip{position:absolute;pointer-events:none;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 9px;font-size:12px;display:none;direction:rtl;box-shadow:0 4px 14px rgba(0,0,0,.2);z-index:5;white-space:nowrap}
+.toolbar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;align-items:center}
+.note{font-size:12px;color:var(--muted);line-height:1.8}.empty{padding:30px;text-align:center;color:var(--muted)}
+.spin{display:inline-block;width:14px;height:14px;border:2px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:s 1s linear infinite;vertical-align:middle;margin-left:6px}@keyframes s{to{transform:rotate(360deg)}}
+.pro-only{display:none}body.pro .pro-only{display:revert}body.pro .simple-only{display:none}
+.chat{display:flex;flex-direction:column;gap:8px;max-height:55vh;overflow:auto;margin-bottom:10px}
+.msg{padding:9px 12px;border-radius:10px;max-width:85%;white-space:pre-wrap;line-height:1.9}.msg.u{background:var(--accent);color:#fff;align-self:flex-start}.msg.a{background:var(--panel2);align-self:flex-end}
+details{margin-top:6px}summary{cursor:pointer;color:var(--accent)}
+.tag{font-size:11px;padding:1px 7px;border-radius:8px;background:var(--panel2);color:var(--muted)}
+@media(max-width:800px){#app{grid-template-columns:1fr;grid-template-rows:54px auto 1fr}nav{display:flex;overflow:auto;border:0;border-bottom:1px solid var(--line)}nav a{white-space:nowrap}}
+</style>
+</head>
+<body>
+<div id="app">
+<header>
+  <div class="logo">GoldTrend Pro<small>تحلیل و تصمیم‌یار بازار طلا</small></div>
+  <span class="pill" id="conn">…</span><span class="pill" id="upd">—</span>
+  <div class="sp"></div>
+  <span id="busy"></span>
+  <button id="bAlert" title="اعلان‌ها">🔔 <span id="alertN">0</span></button>
+  <button id="bMode" title="حالت ساده / حرفه‌ای (m)">حالت: ساده</button>
+  <button id="bTheme" title="تم (t)">☀/🌙</button>
+  <button id="bRefresh" class="pri" title="دریافت داده و تحلیل مجدد (r)">به‌روزرسانی</button>
+</header>
+<nav id="nav"></nav>
+<main id="view"><div class="empty"><span class="spin"></span>در حال بارگذاری…</div></main>
+</div>
+<script>
+"use strict";
+// ---------- helpers ----------
+const $=s=>document.querySelector(s);
+const PAGES=[["dashboard","داشبورد"],["overview","نمای کلی بازار"],["technical","تحلیل تکنیکال"],["forecast","پیش‌بینی هوشمند"],["intermarket","تحلیل بین‌بازاری"],["patterns","الگوهای تاریخی"],["backtest","بک‌تست"],["assistant","دستیار هوشمند"],["sources","منابع داده"],["alerts","هشدارها"],["settings","تنظیمات"]];
+const NAMES={GOLD18_IRR:"طلای ۱۸ عیار",USD_IRR:"دلار آزاد",XAU_USD:"انس جهانی"};
+const UNITS={GOLD18_IRR:"تومان/گرم",USD_IRR:"تومان",XAU_USD:"دلار"};
+const nf=(x,d=0)=>x==null||isNaN(x)?"—":Number(x).toLocaleString("fa-IR",{maximumFractionDigits:d,minimumFractionDigits:d}).replace(/٫/g,".").replace(/٬/g,",").replace(/\u2212/g,"-");
+const pc=(x,d=2)=>x==null||isNaN(x)?"—":`<span dir="ltr">${x>0?"+":""}${nf(x,d)}%</span>`;
+const cls=x=>x==null?"":x>0?"up":x<0?"down":"";
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function jal(iso){ if(!iso) return "—"; const [gy,gm,gd]=iso.slice(0,10).split("-").map(Number);
+  const g=[0,31,59,90,120,151,181,212,243,273,304,334]; let gy2=gm>2?gy+1:gy;
+  let days=355666+365*gy+Math.floor((gy2+3)/4)-Math.floor((gy2+99)/100)+Math.floor((gy2+399)/400)+gd+g[gm-1];
+  let jy=-1595+33*Math.floor(days/12053); days%=12053; jy+=4*Math.floor(days/1461); days%=1461;
+  if(days>365){jy+=Math.floor((days-1)/365);days=(days-1)%365}
+  const jm=days<186?1+Math.floor(days/31):7+Math.floor((days-186)/30), jd=1+(days<186?days%31:(days-186)%30);
+  return nf(jy)+"/"+String(jm).padStart(2,"0").replace(/\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[d])+"/"+String(jd).padStart(2,"0").replace(/\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[d]); }
+async function api(path,body){ const o=body!==undefined?{method:"POST",headers:{"Content-Type":"application/json","X-GT-Client":"1"},body:JSON.stringify(body)}:{};
+  const r=await fetch(path,o); if(!r.ok) throw new Error((await r.json().catch(()=>({}))).error||r.status); return r.json(); }
+const S={snap:null,status:"starting",engine:{},page:"dashboard",mode:localStorage.getItem("gt_mode")||"simple",theme:localStorage.getItem("gt_theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"),asset:localStorage.getItem("gt_asset")||"GOLD18_IRR",days:localStorage.getItem("gt_days")||"365",hz:5,win:20};
+const store=(k,v)=>{S[k.replace("gt_","")]=v;try{localStorage.setItem(k,v)}catch(e){}};
+
+// ---------- interactive canvas chart ----------
+class Chart{
+  constructor(host,{panes,labels,fmt=v=>nf(v,0),onPoint}){ this.host=host; this.panes=panes; this.labels=labels; this.fmt=fmt; this.n=labels.length;
+    this.i1=this.n; this.i0=Math.max(0,this.n-Math.min(this.n,260)); this.cross=null;
+    host.innerHTML='<div class="chartwrap"><canvas></canvas><div class="tip"></div></div>'; this.cv=host.querySelector("canvas"); this.tip=host.querySelector(".tip");
+    this.H=panes.reduce((a,p)=>a+p.h,0)+24; this.cv.style.height=this.H+"px";
+    const ev=this.cv; ev.addEventListener("wheel",e=>{e.preventDefault();this.zoom(e)},{passive:false});
+    ev.addEventListener("mousedown",e=>{this.drag=e.clientX;this.d0=[this.i0,this.i1]});
+    window.addEventListener("mouseup",()=>this.drag=null);
+    ev.addEventListener("mousemove",e=>this.move(e)); ev.addEventListener("mouseleave",()=>{this.cross=null;this.tip.style.display="none";this.draw()});
+    new ResizeObserver(()=>this.draw()).observe(host); this.draw(); }
+  setRange(k){ this.i1=this.n; this.i0=Math.max(0,this.n-(k||this.n)); this.draw(); }
+  zoom(e){ const r=this.cv.getBoundingClientRect(); const f=(e.clientX-r.left)/r.width; // time axis runs left -> right
+    const span=this.i1-this.i0, ns=Math.max(15,Math.min(this.n,span*(e.deltaY>0?1.2:.83))), c=this.i0+span*f;
+    this.i0=Math.max(0,c-ns*f); this.i1=Math.min(this.n,this.i0+ns); this.i0=Math.max(0,this.i1-ns); this.draw(); }
+  move(e){ const r=this.cv.getBoundingClientRect(); const x=e.clientX-r.left, W=r.width;
+    if(this.drag!=null){ const dx=-(e.clientX-this.drag)/W*(this.d0[1]-this.d0[0]); let a=this.d0[0]+dx,b=this.d0[1]+dx; if(a<0){b-=a;a=0} if(b>this.n){a-=b-this.n;b=this.n} this.i0=Math.max(0,a);this.i1=Math.min(this.n,b); this.draw(); return; }
+    const idx=Math.round(this.i0+((x-4)/(W-64))*(this.i1-this.i0)-.5); this.cross={x,idx:Math.max(0,Math.min(this.n-1,idx))}; this.draw(); this.showTip(e); }
+  showTip(e){ const i=this.cross.idx; let h=`<b>${jal(this.labels[i])}</b> <span class="muted">${this.labels[i]}</span>`;
+    this.panes.forEach(p=>p.series.forEach(s=>{ if(s.type==="band"||s.noTip) return; const v=s.type==="candle"?s.c[i]:s.data[i]; if(v==null) return;
+      h+=`<br><span style="color:${s.color||"var(--text)"}">●</span> ${s.name}: <span style="direction:ltr;display:inline-block">${(s.fmt||this.fmt)(v)}</span>`;
+      if(s.type==="candle"&&s.o[i]!=null) h+=` <span class="muted">(ب ${this.fmt(s.h[i])} / پ ${this.fmt(s.l[i])})</span>`;}));
+    this.tip.innerHTML=h; this.tip.style.display="block"; const r=this.cv.getBoundingClientRect(),hr=this.host.getBoundingClientRect();
+    let left=e.clientX-hr.left+14; if(left>hr.width-190) left=e.clientX-hr.left-200; this.tip.style.left=Math.max(0,left)+"px"; this.tip.style.top=Math.max(0,e.clientY-hr.top-10)+"px"; }
+  draw(){ const cv=this.cv, dpr=devicePixelRatio||1, W=cv.clientWidth; if(!W) return; cv.width=W*dpr; cv.height=this.H*dpr; const g=cv.getContext("2d"); g.setTransform(dpr,0,0,dpr,0,0);
+    const css=getComputedStyle(document.documentElement), C=n=>css.getPropertyValue(n).trim(); g.clearRect(0,0,W,this.H); g.font="11px sans-serif";
+    const a=Math.floor(this.i0), b=Math.ceil(this.i1), span=this.i1-this.i0, xOf=i=>4+(i-this.i0+.5)/span*(W-64);
+    let y0=4;
+    this.panes.forEach(p=>{ let mn=Infinity,mx=-Infinity; const add=v=>{if(v!=null&&isFinite(v)){mn=Math.min(mn,v);mx=Math.max(mx,v)}};
+      p.series.forEach(s=>{ for(let i=a;i<b&&i<this.n;i++){ if(s.type==="candle"){add(s.h[i]);add(s.l[i])} else if(s.type==="band"){add(s.lo[i]);add(s.hi[i])} else add(s.data[i]); } });
+      (p.lines||[]).forEach(l=>add(l.y)); if(!isFinite(mn)){mn=0;mx=1} const pad=(mx-mn)*.06||1; mn-=pad; mx+=pad; if(p.min!=null)mn=p.min; if(p.max!=null)mx=p.max;
+      const yOf=v=>y0+p.h-4-(v-mn)/(mx-mn)*(p.h-8);
+      g.strokeStyle=C("--line"); g.fillStyle=C("--muted"); g.lineWidth=1; g.textAlign="left";
+      for(let k=0;k<=4;k++){ const v=mn+(mx-mn)*k/4, y=yOf(v); g.beginPath(); g.moveTo(0,y); g.lineTo(W-58,y); g.globalAlpha=.5; g.stroke(); g.globalAlpha=1; g.fillText((p.fmt||this.fmt)(v),W-56,y+4); }
+      (p.lines||[]).forEach(l=>{ g.strokeStyle=l.color||C("--muted"); g.setLineDash([4,4]); const y=yOf(l.y); g.beginPath(); g.moveTo(0,y); g.lineTo(W-58,y); g.stroke(); g.setLineDash([]); });
+      g.save(); g.beginPath(); g.rect(0,y0,W-58,p.h); g.clip();
+      p.series.forEach(s=>{ const col=s.color&&s.color.startsWith("--")?C(s.color):s.color||C("--text");
+        if(s.type==="band"){ g.fillStyle=col; g.globalAlpha=.18; g.beginPath(); let st=false; for(let i=a;i<b&&i<this.n;i++){ if(s.hi[i]==null)continue; const x=xOf(i),y=yOf(s.hi[i]); st?g.lineTo(x,y):g.moveTo(x,y); st=true; }
+          for(let i=Math.min(b,this.n)-1;i>=a;i--){ if(s.lo[i]==null)continue; g.lineTo(xOf(i),yOf(s.lo[i])); } g.closePath(); g.fill(); g.globalAlpha=1; }
+        else if(s.type==="candle"){ const w=Math.max(1,(W-64)/span*.7); for(let i=a;i<b&&i<this.n;i++){ if(s.c[i]==null||s.h[i]==null)continue; const up=s.o[i]!=null?s.c[i]>=s.o[i]:true, cc=s.o[i]==null?C("--muted"):(up?C("--up"):C("--down")), x=xOf(i);
+            g.strokeStyle=cc; g.fillStyle=cc; g.beginPath(); g.moveTo(x,yOf(s.h[i])); g.lineTo(x,yOf(s.l[i])); g.stroke(); if(s.o[i]!=null){ const t=yOf(Math.max(s.o[i],s.c[i])), bt=yOf(Math.min(s.o[i],s.c[i])); g.fillRect(x-w/2,t,w,Math.max(1,bt-t)); } else { g.fillRect(x-w/2,yOf(s.c[i])-1,w,2);} } }
+        else if(s.type==="bars"){ const w=Math.max(1,(W-64)/span*.7), z=yOf(0); for(let i=a;i<b&&i<this.n;i++){ const v=s.data[i]; if(v==null)continue; g.fillStyle=v>=0?C("--up"):C("--down"); g.fillRect(xOf(i)-w/2,Math.min(z,yOf(v)),w,Math.abs(yOf(v)-z)||1); } }
+        else if(s.type==="dots"){ g.fillStyle=col; for(let i=a;i<b&&i<this.n;i++){ if(s.data[i]==null)continue; g.beginPath(); g.arc(xOf(i),yOf(s.data[i]),4,0,7); g.fill(); } }
+        else { g.strokeStyle=col; g.lineWidth=s.w||1.4; g.setLineDash(s.dash||[]); g.beginPath(); let st=false; for(let i=a;i<b&&i<this.n;i++){ const v=s.data[i]; if(v==null){st=false;continue} const x=xOf(i),y=yOf(v); st?g.lineTo(x,y):g.moveTo(x,y); st=true; } g.stroke(); g.setLineDash([]); g.lineWidth=1; } });
+      g.restore(); if(p.title){g.fillStyle=C("--muted");g.textAlign="right";g.fillText(p.title,W-70,y0+12);} y0+=p.h; });
+    // x labels
+    g.fillStyle=C("--muted"); for(let k=0;k<=5;k++){ g.textAlign=k===0?"left":k===5?"right":"center"; const i=Math.round(this.i0+span*k/5-.5), ii=Math.max(0,Math.min(this.n-1,i)); g.fillText(jal(this.labels[ii]),xOf(ii),this.H-6); }
+    if(this.cross){ g.strokeStyle=C("--muted"); g.setLineDash([3,3]); const x=xOf(this.cross.idx); g.beginPath(); g.moveTo(x,0); g.lineTo(x,this.H-16); g.stroke(); g.setLineDash([]); } }
+}
+function rangeBar(ch,onDays){ const mk=(l,k)=>`<button data-k="${k}">${l}</button>`; return `<div class="toolbar">${mk("۱ ماه",22)}${mk("۳ ماه",66)}${mk("۶ ماه",130)}${mk("۱ سال",260)}${mk("۲ سال",520)}${mk("همه",0)}<span class="note">چرخ ماوس: زوم — کشیدن: جابجایی</span></div>`; }
+function bindRange(root,ch){ root.querySelectorAll(".toolbar [data-k]").forEach(b=>b.onclick=()=>ch.setRange(+b.dataset.k)); }
+
+// ---------- pages ----------
+const V=()=>$("#view"); const need=()=>{ if(!S.snap){ V().innerHTML=`<div class="empty"><span class="spin"></span>${esc(S.engine.message||"در حال تحلیل داده‌ها (بار اول حدود چند ثانیه تا یک دقیقه)…")}${S.engine.state==="running"?" "+nf((S.engine.progress||0)*100,0)+"٪":""}</div>`; return false;} return true; };
+function quoteCard(sym,s){ const q=s.quotes[sym]||{}, mk=s.last_bar; const stale=q.stale; 
+  return `<div class="card"><h3>${NAMES[sym]} <span class="tag">${UNITS[sym]}</span></h3>${q.price!=null?`<div class="big">${nf(q.price,sym==="XAU_USD"?2:0)}</div>`:'<div class="empty">بدون داده</div>'}
+  <div class="note">${q.price==null?"":(stale?`<span class="warn">⚠ کهنه — ${nf(q.age_minutes/60,1)} ساعت قبل از ${q.source}؛ به‌عنوان قیمت لحظه‌ای نمایش داده نمی‌شود</span>`:`<span class="up">زنده</span> · ${q.source} · ${nf(q.age_minutes,0)} دقیقه قبل`)}</div></div>`; }
+async function pDashboard(){ if(!need())return; const s=S.snap, d=s.decision, e=s.technical.explain, r=s.regime, f=s.forecast; const stale=Object.values(s.quotes).some(q=>q.stale);
+  const lastClose=`<div class="card"><h3>آخرین کلوز کامل طلای ۱۸ <span class="tag">${jal(s.last_bar.date)}</span></h3><div class="big">${nf(s.last_bar.close)}</div><div class="${cls(s.last_bar.change_pct)}">${pc(s.last_bar.change_pct)} نسبت به کلوز قبل</div></div>`;
+  const prem=s.intermarket.live.valid?s.intermarket.live.premium_pct:s.intermarket.premium.last_close_based;
+  const hz=f?Object.keys(f.horizons).map(h=>{const x=f.horizons[h];return `<tr><td>${nf(h)} روز</td><td class="n">${nf(x.pred_price)}</td><td class="n ${cls(x.pred_return)}">${pc(x.pred_return*100)}</td><td class="n">${nf(x.lower)} – ${nf(x.upper)}</td><td>${x.ensemble_active?"Ensemble فعال":'<span class="muted">بدون برتری آماری</span>'}</td></tr>`}).join(""):"";
+  V().innerHTML=`<div class="grid g4">${quoteCard("GOLD18_IRR",s)}${quoteCard("USD_IRR",s)}${quoteCard("XAU_USD",s)}${lastClose}</div>
+  ${stale?`<div class="card" style="margin-top:12px;border-color:var(--warn)"><span class="warn">⚠ قیمت‌های لحظه‌ای کهنه‌اند. «به‌روزرسانی» را بزنید (نیازمند اینترنت). تحلیل‌ها بر اساس آخرین کلوز کامل (${jal(s.meta.data_cutoff)}) است.</span></div>`:""}
+  <div class="grid g2" style="margin-top:12px"><div class="card" style="grid-column:1/-1"><h3>نمودار اصلی طلای ۱۸ عیار</h3><div id="ch"></div></div></div>
+  <div class="grid g4" style="margin-top:12px">
+   <div class="card"><h3>سیگنال نهایی</h3><div class="sig ${d.signal}">${d.signal}</div><div class="note" style="margin-top:8px">${d.reasons.map(esc).join("<br>")}</div><div class="note">${esc(d.disclaimer||"")}</div></div>
+   <div class="card"><h3>امتیاز فنی</h3><div class="big">${nf(e.score,0)} <span class="muted" style="font-size:13px">از ۱۰۰</span></div><div class="bar" style="margin:10px 0"><i style="right:${100-(e.score||50)}%"></i></div><div class="note">${e.components.filter(c=>c.valid).slice(0,3).map(c=>`${esc(c.label)}: ${c.stance==="bullish"?"صعودی":c.stance==="bearish"?"نزولی":"خنثی"}`).join(" · ")}</div></div>
+   <div class="card"><h3>وضعیت بازار</h3><div style="font-size:16px;font-weight:700">${esc(r.trend_fa)}</div><div class="note">${esc(r.vol_fa)} · صدک نوسان ${nf((r.vol_percentile||0)*100,0)}٪<br>پریمیوم/دیسکانت نسبت به ارزش نظری: <span class="${cls(prem)}">${pc(prem)}</span></div></div>
+   <div class="card"><h3>کیفیت داده</h3><div class="${s.quality.status==="ok"?"up":s.quality.status==="critical"?"down":"warn"}" style="font-size:16px;font-weight:700">${s.quality.status==="ok"?"سالم":s.quality.status==="critical"?"بحرانی":"هشدار"}</div><div class="note">${nf(s.quality.warnings)} هشدار · ${nf(s.quality.critical)} بحرانی<br>آخرین کندل کامل: ${nf(s.data_health.history_age_days)} روز پیش</div></div></div>
+  ${f?`<div class="card" style="margin-top:12px"><h3>پیش‌بینی چندافقی (مبنا: آخرین کلوز کامل)</h3><table><tr><th>افق</th><th>قیمت مرکزی</th><th>بازده</th><th>بازه ۸۰٪ کالیبره</th><th>وضعیت مدل</th></tr>${hz}</table><div class="note">قیمت مرکزی وقتی هیچ مدلی از Random Walk بهتر نیست برابر قیمت پایه است؛ اطلاعات اصلی در پهنای بازه‌ی کالیبره‌شده است.</div></div>`:""}
+  ${s.alerts.length?`<div class="card" style="margin-top:12px"><h3>هشدارهای اخیر</h3>${s.alerts.slice(0,4).map(a=>`<div class="note">• ${esc(a.message_fa)}</div>`).join("")}</div>`:""}`;
+  const ser=await api(`/api/series?symbol=GOLD18_IRR&days=${S.days==="all"?"all":S.days}`); mainChart($("#ch"),ser,false); }
+function priceSeries(ser,pro){ const base=[ser.has_ohlc?{type:"candle",name:"قیمت",o:ser.open,h:ser.high,l:ser.low,c:ser.close,data:ser.close}:{name:"قیمت",data:ser.close,color:"--text",w:1.8}];
+  base.push({name:"EMA20",data:ser.ema_20,color:"#e0a800"},{name:"EMA50",data:ser.ema_50,color:"#2f5bea"},{name:"EMA200",data:ser.ema_200,color:"#c2185b"}); return base; }
+function mainChart(host,ser,pro){ const ch=new Chart(host,{labels:ser.dates,panes:[{h:330,series:priceSeries(ser)}]}); host.insertAdjacentHTML("afterbegin",rangeBar()); bindRange(host,ch); return ch; }
+async function pOverview(){ const o=await api("/api/overview"); const P=["1m","3m","6m","1y","2y","4y","5y","10y"],PL=["۱ ماه","۳ ماه","۶ ماه","۱ سال","۲ سال","۴ سال","۵ سال","۱۰ سال"];
+  V().innerHTML=`<div class="card"><h3>بازده دوره‌ای دارایی‌ها</h3><div style="overflow:auto"><table><tr><th>دارایی</th><th>آخرین قیمت</th><th>روزانه</th>${PL.map(x=>`<th>${x}</th>`).join("")}</tr>
+  ${o.assets.map(a=>`<tr><td>${esc(a.name)}</td><td class="n">${nf(a.last,a.symbol==="XAU_USD"?2:0)}</td><td class="n ${cls(a.change_1d)}">${pc(a.change_1d)}</td>${P.map(k=>`<td class="n ${cls(a.returns[k])}">${a.returns[k]==null?"—":pc(a.returns[k],1)}</td>`).join("")}</tr>`).join("")}</table></div><div class="note">${esc(o.note)}</div></div>
+  <div class="card" style="margin-top:12px"><h3>مقایسه رشد (مبنا ۱۰۰ از ${jal(o.common_start)})</h3><div id="ch"></div></div>`;
+  const keys=Object.keys(o.rebased), ref=o.rebased[keys[0]].dates; const col={GOLD18_IRR:"#e0a800",USD_IRR:"#2f5bea",XAU_USD:"#26c281"};
+  const ch=new Chart($("#ch"),{labels:ref,panes:[{h:320,fmt:v=>nf(v,0),series:keys.map(k=>{const m=new Map(o.rebased[k].dates.map((d,i)=>[d,o.rebased[k].values[i]]));return{name:NAMES[k],color:col[k],data:ref.map(d=>m.get(d)??null),fmt:v=>nf(v,1)}})}]}); }
+async function pTechnical(){ const sym=S.asset; const ser=await api(`/api/series?symbol=${sym}&days=${S.days}`); const s=S.snap;
+  const sel=`<div class="toolbar"><select id="sa">${Object.keys(NAMES).map(k=>`<option value="${k}" ${k===sym?"selected":""}>${NAMES[k]}</option>`).join("")}</select><span class="note">${ser.has_ohlc?"داده OHLC معتبر":"فقط قیمت پایانی — اندیکاتورهای نیازمند High/Low نامعتبر"}</span></div>`;
+  const pro=S.mode==="pro";
+  const panes=[{h:300,series:[...priceSeries(ser),{name:"باند بالا",data:ser.bb_up,color:"#8d9ab0",dash:[4,3],w:1},{name:"باند پایین",data:ser.bb_lo,color:"#8d9ab0",dash:[4,3],w:1},
+    ...(ser.has_ohlc&&pro?[{name:"Tenkan",data:ser.tenkan,color:"#00acc1",w:1},{name:"Kijun",data:ser.kijun,color:"#ef6c00",w:1},{type:"band",lo:ser.span_b,hi:ser.span_a,color:"#26c281"}]:[])]},
+   {h:90,title:"RSI(14)",min:0,max:100,fmt:v=>nf(v,0),lines:[{y:70,color:"#d93025"},{y:30,color:"#0f9d58"}],series:[{name:"RSI",data:ser.rsi_14,color:"#7b1fa2",fmt:v=>nf(v,1)}]},
+   {h:90,title:"MACD",fmt:v=>nf(v,0),series:[{type:"bars",name:"Hist",data:ser.macd_hist},{name:"MACD",data:ser.macd,color:"#2f5bea"},{name:"Signal",data:ser.macd_signal,color:"#e0a800"}]}];
+  if(ser.has_ohlc) panes.push({h:90,title:"ADX / DI",min:0,fmt:v=>nf(v,0),series:[{name:"ADX",data:ser.adx,color:"#e0a800",fmt:v=>nf(v,1)},{name:"DI+",data:ser.di_plus,color:"#0f9d58",fmt:v=>nf(v,1)},{name:"DI-",data:ser.di_minus,color:"#d93025",fmt:v=>nf(v,1)}]});
+  let side="";
+  if(sym==="GOLD18_IRR"&&s){ const e=s.technical.explain, L=s.technical.levels, v=s.technical.validation.by_horizon["10"];
+    side=`<div class="grid g2" style="margin-top:12px"><div class="card"><h3>امتیاز فنی: ${nf(e.score,0)} از ۱۰۰</h3><table><tr><th>مؤلفه</th><th>وزن مؤثر</th><th>شاهد</th><th>سهم</th></tr>${e.components.map(c=>`<tr><td>${esc(c.label)}</td><td class="n">${c.valid?nf(c.effective_weight*100,0)+"٪":"—"}</td><td>${!c.valid?'<span class="muted">نامعتبر/حذف</span>':c.stance==="bullish"?'<span class="up">صعودی</span>':c.stance==="bearish"?'<span class="down">نزولی</span>':"خنثی"}</td><td class="n ${cls(c.contribution)}">${c.valid?nf(c.contribution,1):"—"}</td></tr>`).join("")}</table><div class="note">${esc(e.note)}</div></div>
+    <div class="card"><h3>حمایت و مقاومت</h3><div class="note">${L.resistances.length?L.resistances.map(x=>`مقاومت: ${nf(x.price)} (${nf(x.touches)} برخورد)`).join("<br>"):"مقاومت تأییدشده‌ای بالاتر از قیمت نیست"}<br>${L.supports.map(x=>`حمایت: ${nf(x.price)} (${nf(x.touches)} برخورد)`).join("<br>")}</div>
+    <h3 style="margin-top:12px">واگرایی‌های تأییدشده</h3><div class="note">${s.technical.divergences.slice(-5).reverse().map(d=>`${d.indicator} ${d.type==="bullish"?"مثبت":"منفی"} — تأیید ${jal(d.date)}`).join("<br>")||"—"}</div>
+    <div class="pro-only"><h3 style="margin-top:12px">اعتبار تاریخی امتیاز (افق ۱۰ روز)</h3><div class="note">${v&&v.valid?`IC=${nf(v.ic,3)} · p=${nf(v.p,3)} · نیمه اول ${nf(v.ic_first_half,2)} / نیمه دوم ${nf(v.ic_second_half,2)} · n=${nf(v.n)}`:"—"}<br>${esc(s.technical.validation.note)}</div></div></div></div>`; }
+  V().innerHTML=`<div class="card">${sel}<div id="ch"></div></div>${side}`;
+  const ch=new Chart($("#ch"),{labels:ser.dates,panes}); $("#ch").insertAdjacentHTML("afterbegin",rangeBar()); bindRange($("#ch"),ch);
+  $("#sa").onchange=e=>{store("gt_asset",e.target.value);route()}; }
+async function pForecast(){ if(!need())return; const s=S.snap, f=s.forecast; if(!f){V().innerHTML='<div class="empty">بک‌تست هنوز آماده نیست</div>';return;}
+  const hs=Object.keys(f.horizons), h=String(S.hz), x=f.horizons[h], sc=s.scenarios;
+  const ser=await api("/api/series?symbol=GOLD18_IRR&days=130"); const comp=ser.dates.map((d,i)=>[d,ser.close[i]]).filter((_,i)=>!(ser.provisional_last&&i===ser.dates.length-1));
+  const lastD=new Date(comp[comp.length-1][0]); const fut=[]; let dd=new Date(lastD); for(let i=0;i<10;i++){ do{dd=new Date(dd.getTime()+864e5)}while(dd.getUTCDay()===5); fut.push(dd.toISOString().slice(0,10)); }
+  const labels=[...comp.map(c=>c[0]),...fut], n=comp.length; const act=[...comp.map(c=>c[1]),...fut.map(()=>null)], mid=labels.map(()=>null), lo=labels.map(()=>null), hi=labels.map(()=>null);
+  mid[n-1]=lo[n-1]=hi[n-1]=comp[n-1][1]; hs.forEach(k=>{const i=n-1+Number(k),y=f.horizons[k]; mid[i]=y.pred_price;lo[i]=y.lower;hi[i]=y.upper;});
+  const fill=a=>{let last=null;return a.map((v,i)=>{if(v!=null){last=[i,v];return v} return null})}; // keep sparse for dots
+  const interp=a=>{const o=a.slice();let p=null;for(let i=0;i<o.length;i++){if(o[i]!=null){if(p!=null&&i-p>1)for(let j=p+1;j<i;j++)o[j]=o[p]+(o[i]-o[p])*(j-p)/(i-p);p=i}}return o};
+  V().innerHTML=`<div class="toolbar">${hs.map(k=>`<button class="${k===h?"on":""}" data-h="${k}">${nf(k)} روزه</button>`).join("")}<span class="note">تاریخ‌های آینده تقریبی‌اند (هفته‌ی کاری ایران)</span></div>
+  <div class="grid g4"><div class="card"><h3>قیمت مرکزی ${nf(h)} روزه</h3><div class="big">${nf(x.pred_price)}</div><div class="note">بازده ${pc(x.pred_return*100)} · مبنا ${nf(f.base_price)}</div></div>
+  <div class="card"><h3>بازه ۸۰٪ کالیبره‌شده</h3><div class="big" style="font-size:16px">${nf(x.lower)} – ${nf(x.upper)}</div><div class="note">${esc(x.calibration_status)}</div></div>
+  <div class="card"><h3>عدم‌قطعیت</h3><div class="big">${nf(x.uncertainty_pct,1)}٪</div><div class="note">σ افق ${nf(x.sigma_h*100,2)}٪</div></div>
+  <div class="card"><h3>توافق مدل‌ها</h3><div class="big">${x.share_models_up==null?"—":nf(x.share_models_up*100,0)+"٪"}</div><div class="note">مدل‌های با پیش‌بینی صعودی · پراکندگی ${nf(x.dispersion,2)}σ<br><span class="warn">هم‌جهت بودن مدل‌ها به معنای برتری آماری نیست؛ بک‌تست را ببینید.</span><br>${x.ensemble_active?"Ensemble فعال":"Ensemble غیرفعال (برتری آماری نسبت به Random Walk دیده نشد)"}</div></div></div>
+  <div class="card" style="margin-top:12px"><h3>قیمت واقعی و پیش‌بینی (نقاط افق‌ها)</h3><div id="ch"></div></div>
+  ${sc?`<div class="grid g4" style="margin-top:12px">${[["bullish","سناریوی صعودی","up"],["neutral","سناریوی خنثی",""],["bearish","سناریوی نزولی","down"]].map(([k,t,c])=>`<div class="card"><h3 class="${c}">${t}</h3><div class="big" style="font-size:17px">${k==="neutral"?nf(sc.neutral.low)+" – "+nf(sc.neutral.high):nf(sc[k].price)}</div><div class="note">${k!=="neutral"?pc(sc[k].return_pct,1)+"<br>":""}ابطال: ${esc(sc[k].invalidated_if)}</div></div>`).join("")}<div class="card"><h3>ریسک</h3><div class="note">دامنه ۵ روزه: ${pc(s.risk.downside_pct,1)} تا ${pc(s.risk.upside_pct,1)}<br>نوسان روزانه ${nf(s.risk.daily_vol_pct,2)}٪<br>نسبت دامنه بالا/پایین ${nf(s.risk.range_ratio,2)}</div></div></div>`:""}
+  <div class="card pro-only" style="margin-top:12px"><h3>پیش‌بینی تک‌تک مدل‌ها (افق ${nf(h)})</h3><table><tr><th>مدل</th><th>بازده پیش‌بینی</th><th>وزن در Ensemble</th></tr>${Object.entries(x.model_preds).map(([m,v])=>`<tr><td>${esc(s.backtest[h].models[m]?.label||m)}</td><td class="n ${cls(v)}">${v==null?"—":pc(v*100,3)}</td><td class="n">${x.weights[m]?nf(x.weights[m]*100,0)+"٪":"—"}</td></tr>`).join("")}</table><div class="note">ARIMA/SARIMAX فقط در صورت نصب statsmodels فعال می‌شوند${f.models_unavailable.length?" (اکنون: غیرفعال)":""}.</div></div>`;
+  V().querySelectorAll("[data-h]").forEach(b=>b.onclick=()=>{S.hz=+b.dataset.h;pForecast()});
+  new Chart($("#ch"),{labels,panes:[{h:330,series:[{type:"band",lo:interp(lo),hi:interp(hi),color:"#2f5bea"},{name:"قیمت واقعی",data:act,color:"--text",w:1.8},{name:"پیش‌بینی مرکزی",data:interp(mid),color:"#e0a800",dash:[5,4],w:1.6,noTip:false},{type:"dots",name:"افق",data:mid,color:"#e0a800",noTip:true}]}]}); }
+async function pInter(){ if(!need())return; const s=S.snap,i=s.intermarket,p=await api("/api/premium"); const cr=i.correlations;
+  V().innerHTML=`<div class="grid g4"><div class="card"><h3>ارزش نظری طلای ۱۸</h3><div class="big">${nf(i.live.theoretical)}</div><div class="note">${esc(i.live.formula)}</div></div>
+  <div class="card"><h3>پریمیوم/دیسکانت ${i.live.valid?"(لحظه‌ای)":"(کلوز "+jal(i.premium.last_date)+")"}</h3><div class="big ${cls(i.live.valid?i.live.premium_pct:i.premium.last_close_based)}">${pc(i.live.valid?i.live.premium_pct:i.premium.last_close_based)}</div><div class="note">${i.live.valid?"":'قیمت‌های لحظه‌ای کهنه‌اند؛ مقدار لحظه‌ای نمایش داده نمی‌شود.<br>'}z۶۰: ${nf(i.premium.z60,2)} · میانگین ${pc(i.premium.mean)} · بازه ۵–۹۵٪: ${pc(i.premium.p05,1)} تا ${pc(i.premium.p95,1)}</div></div>
+  <div class="card"><h3>مدل هم‌حرکتی (۲۵۰ روز)</h3><div class="note">β دلار ${nf(i.comovement.beta_usd,2)} · β انس ${nf(i.comovement.beta_xau,2)} · R² ${nf(i.comovement.r2,2)}<br>انحراف ۲۰ روزه از مقدار ضمنی: ${pc(i.comovement.divergence_20*100)}</div></div></div>
+  <div class="card" style="margin-top:12px"><h3>پریمیوم/دیسکانت در طول زمان (٪)</h3><div id="ch"></div></div>
+  <div class="grid g2" style="margin-top:12px"><div class="card"><h3>همبستگی بازده‌ها (${nf(cr.n_common_days)} روز مشترک)</h3><table><tr><th>جفت</th><th>Pearson</th><th>Spearman</th><th>۳۰ر</th><th>۶۰ر</th><th>۹۰ر</th></tr>${Object.entries(cr.full).map(([k,v])=>`<tr><td>${k.replace("gold","طلا").replace("usd","دلار").replace("xau","انس")}</td><td class="n">${nf(v.pearson,2)}</td><td class="n">${nf(v.spearman,2)}</td>${["30","60","90"].map(w=>`<td class="n">${nf(cr.rolling[k][w],2)}</td>`).join("")}</tr>`).join("")}</table><div class="note">همبستگی به معنای رابطه علت و معلولی نیست.</div></div>
+  <div class="card"><h3>تحلیل تأخیر (طلا نسبت به بازار دیگر)</h3><table><tr><th>تأخیر</th><th>دلار</th><th>انس</th></tr>${[0,1,2,3,4,5].map(k=>`<tr><td>${nf(k)} روز</td><td class="n">${nf(i.lags.usd.by_lag[k].corr,3)}</td><td class="n">${nf(i.lags.xau.by_lag[k].corr,3)}</td></tr>`).join("")}</table><div class="note">قوی‌ترین تأخیر: دلار ${nf(i.lags.usd.strongest_lag)}، انس ${nf(i.lags.xau.strongest_lag)}. ${esc(i.lags.usd.note)}</div></div></div>`;
+  new Chart($("#ch"),{labels:p.dates,panes:[{h:260,fmt:v=>nf(v,1),lines:[{y:0,color:"#8d9ab0"}],series:[{name:"پریمیوم٪",data:p.premium,color:"#e0a800",fmt:v=>nf(v,2)+"٪"}]}]}); }
+async function pPatterns(){ if(!need())return; const s=S.snap, P=s.patterns[String(S.win)]; if(!P.valid){V().innerHTML='<div class="empty">الگوی کافی نیست</div>';return;}
+  V().innerHTML=`<div class="toolbar"><button data-w="20" class="${S.win===20?"on":""}">پنجره ۲۰ روزه</button><button data-w="30" class="${S.win===30?"on":""}">پنجره ۳۰ روزه</button><span class="tag">${esc(P.method)}</span></div>
+  <div class="card"><h3>مسیر بازده تجمعی (٪) — الگوی فعلی در برابر مشابه‌ترین‌ها</h3><div id="ch"></div></div>
+  <div class="card" style="margin-top:12px"><h3>بازده پس از الگو</h3><table><tr><th>افق</th><th>میانگین</th><th>میانه</th><th>پراکندگی</th><th>صعودی/نزولی</th><th>٪ صعودی</th><th>نرخ پایه تاریخی</th></tr>${Object.entries(P.summary).map(([h,m])=>`<tr><td>${nf(h)} روز</td><td class="n ${cls(m.mean)}">${pc(m.mean*100)}</td><td class="n ${cls(m.median)}">${pc(m.median*100)}</td><td class="n">${nf(m.std*100,2)}</td><td class="n">${nf(m.up)} / ${nf(m.down)}</td><td class="n">${nf(m.up_pct,0)}٪</td><td class="n muted">${nf(m.base_rate_up_pct,0)}٪</td></tr>`).join("")}</table><div class="note">${esc(P.caveat)}</div></div>
+  <div class="card" style="margin-top:12px"><h3>نمونه‌های مشابه</h3><table><tr><th>بازه</th><th>شباهت</th><th>۱ر</th><th>۳ر</th><th>۵ر</th><th>۷ر</th><th>۱۰ر</th></tr>${P.matches.map(m=>`<tr><td>${jal(m.start_date)} تا ${jal(m.end_date)}</td><td class="n">${nf(m.similarity,0)}٪</td>${[1,3,5,7,10].map(h=>`<td class="n ${cls(m.future_returns[h])}">${pc(m.future_returns[h]*100,1)}</td>`).join("")}</tr>`).join("")}</table></div>`;
+  V().querySelectorAll("[data-w]").forEach(b=>b.onclick=()=>{S.win=+b.dataset.w;pPatterns()});
+  const L=P.window, labels=Array.from({length:L},(_,i)=>String(i+1)); const cols=["#8d9ab0"]; 
+  const ser=[...P.matches.map((m,i)=>({name:"مشابه "+nf(i+1),data:m.path,color:"#8d9ab0",w:1,noTip:true})),{name:"الگوی فعلی",data:P.query_path,color:"#e0a800",w:2.4}];
+  const ch=new Chart($("#ch"),{labels:labels.map((_,i)=>P.query_end),panes:[{h:280,fmt:v=>nf(v,1),series:ser}]}); ch.labels=labels.map(i=>`روز ${i}`); }
+function pBacktest(){ if(!need())return; const s=S.snap,b=s.backtest; if(!b){V().innerHTML='<div class="empty">بک‌تست در حال اجراست…</div>';return;} const h=String(S.hz), r=b[h], pro=S.mode==="pro";
+  const rows=Object.entries(r.models).filter(([k,m])=>m.valid).map(([k,m])=>`<tr style="${k==="ensemble"?"font-weight:700":""}"><td>${esc(m.label)}</td><td class="n">${nf(m.n)}</td><td class="n">${nf(m.mae*100,3)}</td><td class="n">${nf(m.rmse*100,3)}</td><td class="n ${m.rmse_ratio<0.99?"up":m.rmse_ratio>1.01?"down":""}">${nf(m.rmse_ratio,3)}</td><td class="n">${nf(m.mase_vs_rw,3)}</td><td class="n">${nf(m.smape_price,3)}</td><td class="n">${m.dir_acc==null?"—":nf(m.dir_acc*100,1)+"٪"}</td><td class="n muted">${m.base_up_rate==null?"—":nf(m.base_up_rate*100,1)+"٪"}</td><td class="n">${m.interval_80_coverage==null?"—":nf(m.interval_80_coverage*100,1)+"٪"}</td><td class="n">${m.dm_p==null?"—":nf(m.dm_p,3)}</td></tr>`).join("");
+  const t=s.tracking;
+  V().innerHTML=`<div class="toolbar">${Object.keys(b).map(k=>`<button data-h="${k}" class="${k===h?"on":""}">${nf(k)} روزه</button>`).join("")}</div>
+  <div class="card"><h3>Walk-Forward (انبساطی، فاصله‌ی embargo برابر افق) — بازده ${nf(h)} روزه</h3><div style="overflow:auto"><table><tr><th>مدل</th><th>n</th><th>MAE٪</th><th>RMSE٪</th><th>RMSE/RW</th><th>MASE</th><th>sMAPE٪ قیمت</th><th>دقت جهت</th><th>نرخ پایه صعود</th><th>پوشش ۸۰٪</th><th>DM p</th></tr>${rows}</table></div>
+  <div class="note">RMSE/RW کمتر از ۱ یعنی بهتر از Random Walk. Ensemble: <b>${r.ensemble_enabled?"فعال":"غیرفعال"}</b> (شرط فعال‌سازی: کاهش RMSE حداقل ۱٪ و p&lt;۰٫۱ در آزمون Diebold–Mariano). نمونه‌ها هم‌پوشان‌اند و تعداد مؤثر کمتر از n است. ${esc(s.backtest&&"")}</div></div>
+  <div class="card" style="margin-top:12px"><h3>خطای اخیر سری نهایی (بازده واقعی − پیش‌بینی)</h3><div id="ch"></div></div>
+  <div class="card pro-only" style="margin-top:12px"><h3>عملکرد در رژیم‌های بازار (Ensemble، افق ${nf(h)})</h3><table><tr><th>رژیم</th><th>n</th><th>RMSE/RW</th><th>دقت جهت</th></tr>${Object.entries(r.models.ensemble.by_regime||{}).map(([k,v])=>`<tr><td>${esc(k)}</td><td class="n">${nf(v.n)}</td><td class="n">${nf(v.rmse_ratio,3)}</td><td class="n">${v.dir_acc==null?"—":nf(v.dir_acc*100,1)+"٪"}</td></tr>`).join("")}</table></div>
+  <div class="card" style="margin-top:12px"><h3>ردیابی پیش‌بینی‌های ثبت‌شده</h3><div class="note">کل ثبت‌شده: ${nf(t.total)} · تسویه‌شده: ${nf(t.resolved.reduce((a,x)=>a+x.n,0))}. ${esc(t.note)}</div><table><tr><th>داده تا</th><th>افق</th><th>پیش‌بینی</th><th>بازه</th><th>سیگنال</th><th>واقعی</th><th>در بازه؟</th></tr>${t.recent.map(x=>`<tr><td>${jal(x.data_cutoff)}</td><td>${nf(x.horizon_days)}</td><td class="n">${nf(x.predicted_price)}</td><td class="n">${nf(x.lower_bound)} – ${nf(x.upper_bound)}</td><td>${esc(x.signal)}</td><td class="n">${nf(x.actual_price)}</td><td>${x.in_interval==null?"در انتظار":x.in_interval?"✓":"✗"}</td></tr>`).join("")}</table></div>`;
+  V().querySelectorAll("[data-h]").forEach(x=>x.onclick=()=>{S.hz=+x.dataset.h;pBacktest()});
+  const e=s.errors[h]; new Chart($("#ch"),{labels:e.dates,panes:[{h:200,fmt:v=>nf(v*100,1)+"٪",lines:[{y:0,color:"#8d9ab0"}],series:[{type:"bars",name:"خطا",data:e.err,fmt:v=>nf(v*100,2)+"٪"}]}]}); }
+function pAssistant(){ if(!need())return; V().innerHTML=`<div class="card"><h3>دستیار بازار (پاسخ‌ها فقط از نتایج موتورهای تحلیلی ساخته می‌شوند)</h3><div class="chat" id="chat"><div class="msg a">سلام! درباره‌ی سیگنال، پیش‌بینی، ریسک، پریمیوم، الگوها، دقت مدل‌ها، منابع داده یا سناریوها بپرسید.</div></div>
+  <div class="toolbar"><input id="q" style="flex:1" placeholder="مثلاً: ریسک الان چقدر است؟"><button class="pri" id="send">ارسال</button></div>
+  <div class="toolbar">${["سیگنال الان چیست؟","ریسک را توضیح بده","دقت مدل‌ها چقدر است؟","سناریوها چیست؟","وضعیت دلار و پریمیوم","گزارش روزانه"].map(t=>`<button class="qq">${t}</button>`).join("")}</div></div>`;
+  const send=async t=>{ const c=$("#chat"); c.insertAdjacentHTML("beforeend",`<div class="msg u">${esc(t)}</div>`); try{ const r=await api("/api/assistant",{question:t}); c.insertAdjacentHTML("beforeend",`<div class="msg a">${esc(r.answer)}<div class="note">منبع: ${esc(r.refs.join("، "))} · داده تا ${jal(r.data_cutoff)}${r.llm_used?" · بازنویسی با LLM":""}</div></div>`);}catch(e){c.insertAdjacentHTML("beforeend",`<div class="msg a down">خطا: ${esc(e.message)}</div>`)} c.scrollTop=c.scrollHeight; };
+  $("#send").onclick=()=>{const v=$("#q").value.trim(); if(v){$("#q").value="";send(v)}}; $("#q").onkeydown=e=>{if(e.key==="Enter")$("#send").click()}; V().querySelectorAll(".qq").forEach(b=>b.onclick=()=>send(b.textContent)); }
+async function pSources(){ const d=await api("/api/sources"); V().innerHTML=`<div class="grid g4">${Object.entries(d.quotes).map(([k,q])=>`<div class="card"><h3>${NAMES[k]}</h3><div class="${q.stale?"warn":"up"}" style="font-weight:700">${q.price==null?"بدون داده":q.stale?"کهنه":"سالم"}</div><div class="note">${esc(q.source)} · ${q.age_minutes!=null?nf(q.age_minutes/60,1)+" ساعت قبل":""}</div></div>`).join("")}</div>
+  <div class="card" style="margin-top:12px"><h3>منابع</h3><table><tr><th>منبع</th><th>اولویت</th><th>تعداد رکورد</th><th>اولین</th><th>آخرین</th><th>آخرین دریافت</th></tr>${d.sources.map(s=>`<tr><td>${esc(s.name)}</td><td>${nf(s.priority)}</td><td class="n">${nf(s.observations)}</td><td>${s.first_ts?jal(s.first_ts):"—"}</td><td>${s.last_ts?jal(s.last_ts):"—"}</td><td class="n" style="direction:ltr">${esc(s.last_fetch||"—")}</td></tr>`).join("")}</table></div>
+  <div class="grid g2" style="margin-top:12px"><div class="card"><h3>تاریخچه‌ی دریافت‌ها</h3>${d.runs.length?`<table><tr><th>زمان (UTC)</th><th>منبع</th><th>وضعیت</th><th>جدید</th></tr>${d.runs.map(r=>`<tr><td style="direction:ltr">${esc(r.started_at_utc)}</td><td>${esc(r.source)}</td><td class="${r.status==="ok"?"up":"down"}">${r.status==="ok"?"موفق":"خطا"}</td><td>${nf(r.inserted)}</td></tr>`).join("")}</table>`:'<div class="empty">هنوز دریافتی ثبت نشده</div>'}</div>
+  <div class="card"><h3>خطاها (لاگ)</h3>${d.log_errors.length?d.log_errors.map(l=>`<div class="note" style="direction:ltr;text-align:left">${esc(l)}</div>`).join(""):'<div class="empty">خطایی ثبت نشده</div>'}</div></div>`; }
+async function pAlerts(){ const d=await api("/api/alerts"); V().innerHTML=`<div class="card"><h3>هشدارها</h3>${d.alerts.length?d.alerts.map(a=>`<div class="note">• <span class="tag">${esc(a.severity)}</span> ${esc(a.message_fa)} <span class="muted" style="direction:ltr;display:inline-block">${esc(a.created_at_utc)}</span></div>`).join(""):'<div class="empty">هشداری نیست</div>'}<br><button id="ack">علامت‌گذاری همه به‌عنوان خوانده‌شده</button></div>`; $("#ack").onclick=async()=>{await api("/api/alerts/ack",{});S.alerts0=0;$("#alertN").textContent="0"}; }
+async function pSettings(){ const d=await api("/api/alerts"), st=d.settings; V().innerHTML=`<div class="grid g2"><div class="card"><h3>نمایش</h3><div class="toolbar"><button id="t1">تم روشن/تاریک</button><button id="t2">حالت ساده/حرفه‌ای</button></div><div class="note">میانبرها: <b>t</b> تم · <b>m</b> حالت · <b>r</b> به‌روزرسانی · <b>1…9</b> صفحات</div></div>
+  <div class="card"><h3>هشدارها</h3><div class="toolbar"><label>حد حرکت روزانه (σ) <input id="ms" type="number" step="0.5" min="1" max="6" value="${st.move_sigma}" style="width:80px"></label><label>حد z پریمیوم <input id="pz" type="number" step="0.5" min="1" max="5" value="${st.premium_z}" style="width:80px"></label></div>
+  <div class="toolbar"><label><input type="checkbox" id="ns" ${st.notify_signal_change?"checked":""}> تغییر سیگنال</label><label><input type="checkbox" id="nt" ${st.notify_stale?"checked":""}> داده کهنه</label></div><button class="pri" id="sv">ذخیره</button></div>
+  <div class="card"><h3>تحلیل و مدل‌ها</h3><button id="rr">اجرای مجدد کامل تحلیل و بک‌تست</button><div class="note">مدل‌ها و وزن‌ها در بک‌تست ارزیابی می‌شوند و فقط در صورت برتری آماری فعال می‌شوند.</div></div></div>`;
+  $("#t1").onclick=toggleTheme; $("#t2").onclick=toggleMode; $("#rr").onclick=async()=>{await api("/api/rerun",{});poll()};
+  $("#sv").onclick=async()=>{await api("/api/settings",{move_sigma:+$("#ms").value,premium_z:+$("#pz").value,notify_signal_change:$("#ns").checked,notify_stale:$("#nt").checked});$("#sv").textContent="ذخیره شد ✓"}; }
+const ROUTES={dashboard:pDashboard,overview:pOverview,technical:pTechnical,forecast:pForecast,intermarket:pInter,patterns:pPatterns,backtest:pBacktest,assistant:pAssistant,sources:pSources,alerts:pAlerts,settings:pSettings};
+async function route(){ const p=(location.hash||"#dashboard").slice(1); S.page=ROUTES[p]?p:"dashboard"; document.querySelectorAll("nav a").forEach(a=>a.classList.toggle("act",a.dataset.p===S.page));
+  const needsSnap=["dashboard","forecast","intermarket","patterns","backtest","assistant"].includes(S.page); if(needsSnap&&!S.snap){need();return;} V().innerHTML='<div class="empty"><span class="spin"></span></div>';
+  try{ await ROUTES[S.page](); }catch(e){ V().innerHTML=`<div class="card down">خطا در بارگذاری: ${esc(e.message)}</div>`; } }
+function toggleTheme(){ store("gt_theme",S.theme==="dark"?"light":"dark"); document.documentElement.dataset.theme=S.theme; route(); }
+function toggleMode(){ store("gt_mode",S.mode==="pro"?"simple":"pro"); document.body.classList.toggle("pro",S.mode==="pro"); $("#bMode").textContent="حالت: "+(S.mode==="pro"?"حرفه‌ای":"ساده"); route(); }
+async function poll(){ try{ const r=await api("/api/snapshot"); S.status=r.status; S.engine=r.engine||{}; if(r.snapshot){ const first=!S.snap; const changed=!S.snap||r.snapshot.meta.generated_at!==S.snap.meta.generated_at; S.snap=r.snapshot; if(changed){ updateTop(); if(first||["dashboard"].includes(S.page)) route(); } }
+    $("#busy").innerHTML=(r.status==="computing"||r.engine.state==="running")?`<span class="spin"></span><span class="note">${esc(r.engine.message||"در حال تحلیل")}</span>`:"";
+    $("#conn").className="pill "+(r.status==="ready"?"ok":r.status==="error"?"bad":"warn"); $("#conn").textContent=r.status==="ready"?"سیستم آماده":r.status==="error"?"خطا در تحلیل":"در حال محاسبه";
+    if(!S.snap) need(); }catch(e){ $("#conn").className="pill bad"; $("#conn").textContent="قطع ارتباط با سرور"; }
+  clearTimeout(S.t); S.t=setTimeout(poll,(S.status==="ready"&&S.engine.state!=="running")?30000:2000); }
+function updateTop(){ const s=S.snap; $("#upd").textContent="داده تا "+jal(s.meta.data_cutoff); const n=(s.alerts||[]).filter(a=>!a.acknowledged).length; $("#alertN").textContent=nf(n); }
+function init(){ document.documentElement.dataset.theme=S.theme; document.body.classList.toggle("pro",S.mode==="pro"); $("#bMode").textContent="حالت: "+(S.mode==="pro"?"حرفه‌ای":"ساده");
+  $("#nav").innerHTML=PAGES.map(([k,t],i)=>`<a href="#${k}" data-p="${k}">${t}</a>`).join(""); $("#bTheme").onclick=toggleTheme; $("#bMode").onclick=toggleMode; $("#bAlert").onclick=()=>location.hash="#alerts";
+  $("#bRefresh").onclick=async()=>{ $("#bRefresh").disabled=true; try{await api("/api/refresh",{})}catch(e){} setTimeout(()=>{$("#bRefresh").disabled=false},4000); poll(); };
+  addEventListener("hashchange",route); addEventListener("keydown",e=>{ if(["INPUT","SELECT","TEXTAREA"].includes(e.target.tagName)) return; if(e.key==="t")toggleTheme(); else if(e.key==="m")toggleMode(); else if(e.key==="r")$("#bRefresh").click(); else if(/^[1-9]$/.test(e.key)) location.hash="#"+PAGES[+e.key-1][0]; });
+  route(); poll(); }
+init();
+</script>
+</body>
+</html>
