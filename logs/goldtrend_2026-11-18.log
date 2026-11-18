@@ -1,0 +1,31 @@
+2026-11-18 10:02:49.339 +03:30 | INFO     | app.web.server:serve:181 - GoldTrend Pro UI: http://127.0.0.1:8765
+2026-11-18 10:07:13.373 +03:30 | INFO     | app.collectors.tgju:collect:91 - TGJU inserted 2 new observations
+2026-11-18 10:07:14.266 +03:30 | INFO     | app.collectors.xaus:collect:50 - XAUS status=fresh inserted=True
+2026-11-18 10:07:49.640 +03:30 | INFO     | app.collectors.tgju:collect:91 - TGJU inserted 0 new observations
+2026-11-18 10:07:50.527 +03:30 | INFO     | app.collectors.xaus:collect:50 - XAUS status=fresh inserted=True
+2026-11-18 10:10:37.411 +03:30 | INFO     | app.web.server:serve:181 - GoldTrend Pro UI: http://127.0.0.1:8765
+2026-11-18 12:16:42.724 +03:30 | INFO     | app.web.server:serve:181 - GoldTrend Pro UI: http://127.0.0.1:8765
+2026-11-18 12:17:25.553 +03:30 | INFO     | app.collectors.tgju:collect:91 - TGJU inserted 2 new observations
+2026-11-18 12:17:26.137 +03:30 | INFO     | app.collectors.xaus:collect:50 - XAUS status=fresh inserted=True
+2026-11-18 12:17:34.850 +03:30 | INFO     | app.collectors.tgju:collect:91 - TGJU inserted 2 new observations
+2026-11-18 12:17:36.365 +03:30 | INFO     | app.collectors.xaus:collect:50 - XAUS status=fresh inserted=False
+2026-11-18 12:17:55.218 +03:30 | INFO     | app.collectors.tgju:collect:91 - TGJU inserted 2 new observations
+2026-11-18 12:17:56.206 +03:30 | INFO     | app.collectors.xaus:collect:50 - XAUS status=fresh inserted=True
+2026-11-18 12:18:05.435 +03:30 | INFO     | app.collectors.tgju:collect:91 - TGJU inserted 0 new observations
+2026-11-18 12:18:06.111 +03:30 | INFO     | app.collectors.xaus:collect:50 - XAUS status=fresh inserted=False
+2026-11-18 12:19:46.250 +03:30 | INFO     | app.collectors.tgju:collect:91 - TGJU inserted 2 new observations
+2026-11-18 12:19:49.440 +03:30 | INFO     | app.collectors.xaus:collect:50 - XAUS status=fresh inserted=True
+2026-11-18 12:19:56.331 +03:30 | INFO     | app.collectors.tgju:collect:91 - TGJU inserted 0 new observations
+2026-11-18 12:19:57.180 +03:30 | INFO     | app.collectors.xaus:collect:50 - XAUS status=fresh inserted=True
+2026-11-18 12:25:24.617 +03:30 | INFO     | app.collectors.tgju:collect:91 - TGJU inserted 2 new observations
+2026-11-18 12:25:25.315 +03:30 | INFO     | app.collectors.xaus:collect:50 - XAUS status=fresh inserted=True
+2026-11-18 12:31:28.236 +03:30 | INFO     | app.web.server:serve:181 - GoldTrend Pro UI: http://127.0.0.1:8765
+2026-11-18 12:31:47.413 +03:30 | INFO     | app.collectors.tgju:collect:91 - TGJU inserted 2 new observations
+2026-11-18 12:31:48.241 +03:30 | INFO     | app.collectors.xaus:collect:50 - XAUS status=fresh inserted=True
+2026-11-18 12:46:06.013 +03:30 | INFO     | app.collectors.tgju:collect:91 - TGJU inserted 2 new observations
+2026-11-18 12:46:06.971 +03:30 | INFO     | app.collectors.xaus:collect:50 - XAUS status=fresh inserted=True
+2026-11-18 13:19:23.529 +03:30 | INFO     | app.web.server:serve:181 - GoldTrend Pro UI: http://127.0.0.1:8765
+2026-11-18 13:20:28.447 +03:30 | INFO     | app.collectors.tgju:collect:91 - TGJU inserted 2 new observations
+2026-11-18 13:20:29.431 +03:30 | INFO     | app.collectors.xaus:collect:50 - XAUS status=fresh inserted=True
+2026-11-18 13:32:41.892 +03:30 | INFO     | app.collectors.tgju:collect:91 - TGJU inserted 2 new observations
+2026-11-18 13:32:42.847 +03:30 | INFO     | app.collectors.xaus:collect:50 - XAUS status=fresh inserted=True

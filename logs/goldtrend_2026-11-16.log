@@ -1,0 +1,68 @@
+2026-11-16 15:59:42.908 +03:30 | INFO     | app.engines.audit:run_data_audit:5 - ========== GOLDTREND DATA AUDIT ==========
+2026-11-16 15:59:42.914 +03:30 | INFO     | app.engines.audit:run_data_audit:28 - RAW OBSERVATIONS BY SYMBOL/SOURCE
+2026-11-16 15:59:42.915 +03:30 | INFO     | app.engines.audit:run_data_audit:30 - GOLD18_IRR | TGJU | rows=3 | first=2026-11-16T12:13:51Z | last=2026-11-16T12:23:50Z
+2026-11-16 15:59:42.915 +03:30 | INFO     | app.engines.audit:run_data_audit:30 - GOLD18_IRR | YFINANCE_IR | rows=3554 | first=2013-07-21T19:30:00Z | last=2026-11-11T20:30:00Z
+2026-11-16 15:59:42.915 +03:30 | INFO     | app.engines.audit:run_data_audit:30 - USD_IRR | TGJU | rows=3 | first=2026-11-16T12:13:56Z | last=2026-11-16T12:23:41Z
+2026-11-16 15:59:42.915 +03:30 | INFO     | app.engines.audit:run_data_audit:30 - USD_IRR | YFINANCE_IR | rows=4002 | first=2011-11-25T20:30:00Z | last=2026-11-11T20:30:00Z
+2026-11-16 15:59:42.915 +03:30 | INFO     | app.engines.audit:run_data_audit:30 - XAU_USD | XAUS | rows=3 | first=2026-11-16T12:13:39Z | last=2026-11-16T12:23:39Z
+2026-11-16 15:59:42.915 +03:30 | INFO     | app.engines.audit:run_data_audit:32 - CANDLES BY SYMBOL/TIMEFRAME
+2026-11-16 15:59:42.916 +03:30 | INFO     | app.engines.audit:run_data_audit:34 - GOLD18_IRR | 1d | rows=3555 | first=2013-07-21T00:00:00Z | last=2026-11-16T00:00:00Z | samples_per_bar=1..3
+2026-11-16 15:59:42.916 +03:30 | INFO     | app.engines.audit:run_data_audit:34 - GOLD18_IRR | 1w | rows=696 | first=2013-07-15T00:00:00Z | last=2026-11-16T00:00:00Z | samples_per_bar=1..6
+2026-11-16 15:59:42.916 +03:30 | INFO     | app.engines.audit:run_data_audit:34 - USD_IRR | 1d | rows=4003 | first=2011-11-25T00:00:00Z | last=2026-11-16T00:00:00Z | samples_per_bar=1..3
+2026-11-16 15:59:42.916 +03:30 | INFO     | app.engines.audit:run_data_audit:34 - USD_IRR | 1w | rows=782 | first=2011-11-21T00:00:00Z | last=2026-11-16T00:00:00Z | samples_per_bar=1..6
+2026-11-16 15:59:42.916 +03:30 | INFO     | app.engines.audit:run_data_audit:34 - XAU_USD | 1d | rows=1 | first=2026-11-16T00:00:00Z | last=2026-11-16T00:00:00Z | samples_per_bar=3..3
+2026-11-16 15:59:42.916 +03:30 | INFO     | app.engines.audit:run_data_audit:34 - XAU_USD | 1w | rows=1 | first=2026-11-16T00:00:00Z | last=2026-11-16T00:00:00Z | samples_per_bar=3..3
+2026-11-16 15:59:42.917 +03:30 | INFO     | app.engines.audit:run_data_audit:37 - INDICATOR VALIDITY
+2026-11-16 15:59:42.917 +03:30 | INFO     | app.engines.audit:run_data_audit:39 - GOLD18_IRR | 1d | rows=3555 | valid_RSI=3541 | valid_EMA200=3356
+2026-11-16 15:59:42.917 +03:30 | INFO     | app.engines.audit:run_data_audit:39 - GOLD18_IRR | 1w | rows=696 | valid_RSI=682 | valid_EMA200=497
+2026-11-16 15:59:42.917 +03:30 | INFO     | app.engines.audit:run_data_audit:39 - USD_IRR | 1d | rows=4003 | valid_RSI=3989 | valid_EMA200=3804
+2026-11-16 15:59:42.917 +03:30 | INFO     | app.engines.audit:run_data_audit:39 - USD_IRR | 1w | rows=782 | valid_RSI=768 | valid_EMA200=583
+2026-11-16 15:59:42.917 +03:30 | INFO     | app.engines.audit:run_data_audit:39 - XAU_USD | 1d | rows=1 | valid_RSI=0 | valid_EMA200=0
+2026-11-16 15:59:42.917 +03:30 | INFO     | app.engines.audit:run_data_audit:39 - XAU_USD | 1w | rows=1 | valid_RSI=0 | valid_EMA200=0
+2026-11-16 15:59:42.918 +03:30 | INFO     | app.engines.audit:run_data_audit:41 - ========== END DATA AUDIT ==========
+2026-11-16 16:01:08.285 +03:30 | INFO     | app.collectors.tgju:collect:91 - TGJU inserted 2 new observations
+2026-11-16 16:01:25.563 +03:30 | INFO     | app.collectors.xaus:collect:50 - XAUS status=fresh inserted=True
+2026-11-16 16:01:45.071 +03:30 | INFO     | app.collectors.tgju_history:collect:39 - Historical backfill inserted 4 new observations
+2026-11-16 16:01:53.442 +03:30 | INFO     | app.collectors.xau_history:collect:63 - XAUS historical XAU/USD: accepted=1258 inserted=1258 first=2021-11-16 last=2026-11-16
+2026-11-16 16:01:53.443 +03:30 | INFO     | __main__:main:28 - Backfill results: {'TGJU': 2, 'XAUS': 1, 'YFINANCE_IR': 4, 'XAUS_HISTORY': 1258}
+2026-11-16 16:03:15.106 +03:30 | INFO     | __main__:main:33 - GOLD18_IRR 4h candles upserted: 0
+2026-11-16 16:03:15.234 +03:30 | INFO     | __main__:main:33 - GOLD18_IRR 1d candles upserted: 3557
+2026-11-16 16:03:15.273 +03:30 | INFO     | __main__:main:33 - GOLD18_IRR 1w candles upserted: 696
+2026-11-16 16:03:15.284 +03:30 | INFO     | __main__:main:33 - USD_IRR 4h candles upserted: 0
+2026-11-16 16:03:15.425 +03:30 | INFO     | __main__:main:33 - USD_IRR 1d candles upserted: 4005
+2026-11-16 16:03:15.472 +03:30 | INFO     | __main__:main:33 - USD_IRR 1w candles upserted: 782
+2026-11-16 16:03:15.478 +03:30 | INFO     | __main__:main:33 - XAU_USD 4h candles upserted: 0
+2026-11-16 16:03:15.527 +03:30 | INFO     | __main__:main:33 - XAU_USD 1d candles upserted: 1258
+2026-11-16 16:03:15.545 +03:30 | INFO     | __main__:main:33 - XAU_USD 1w candles upserted: 262
+2026-11-16 16:03:16.097 +03:30 | INFO     | __main__:main:38 - GOLD18_IRR 4h indicators upserted: 0
+2026-11-16 16:03:17.523 +03:30 | INFO     | __main__:main:38 - GOLD18_IRR 1d indicators upserted: 3557
+2026-11-16 16:03:17.800 +03:30 | INFO     | __main__:main:38 - GOLD18_IRR 1w indicators upserted: 696
+2026-11-16 16:03:17.801 +03:30 | INFO     | __main__:main:38 - USD_IRR 4h indicators upserted: 0
+2026-11-16 16:03:19.399 +03:30 | INFO     | __main__:main:38 - USD_IRR 1d indicators upserted: 4005
+2026-11-16 16:03:19.709 +03:30 | INFO     | __main__:main:38 - USD_IRR 1w indicators upserted: 782
+2026-11-16 16:03:19.711 +03:30 | INFO     | __main__:main:38 - XAU_USD 4h indicators upserted: 0
+2026-11-16 16:03:20.212 +03:30 | INFO     | __main__:main:38 - XAU_USD 1d indicators upserted: 1258
+2026-11-16 16:03:20.317 +03:30 | INFO     | __main__:main:38 - XAU_USD 1w indicators upserted: 262
+2026-11-16 16:03:32.655 +03:30 | INFO     | app.engines.audit:run_data_audit:5 - ========== GOLDTREND DATA AUDIT ==========
+2026-11-16 16:03:32.662 +03:30 | INFO     | app.engines.audit:run_data_audit:28 - RAW OBSERVATIONS BY SYMBOL/SOURCE
+2026-11-16 16:03:32.662 +03:30 | INFO     | app.engines.audit:run_data_audit:30 - GOLD18_IRR | TGJU | rows=4 | first=2026-11-16T12:13:51Z | last=2026-11-16T12:30:57Z
+2026-11-16 16:03:32.663 +03:30 | INFO     | app.engines.audit:run_data_audit:30 - GOLD18_IRR | YFINANCE_IR | rows=3556 | first=2013-07-21T19:30:00Z | last=2026-11-14T20:30:00Z
+2026-11-16 16:03:32.663 +03:30 | INFO     | app.engines.audit:run_data_audit:30 - USD_IRR | TGJU | rows=4 | first=2026-11-16T12:13:56Z | last=2026-11-16T12:30:59Z
+2026-11-16 16:03:32.663 +03:30 | INFO     | app.engines.audit:run_data_audit:30 - USD_IRR | YFINANCE_IR | rows=4004 | first=2011-11-25T20:30:00Z | last=2026-11-14T20:30:00Z
+2026-11-16 16:03:32.663 +03:30 | INFO     | app.engines.audit:run_data_audit:30 - XAU_USD | XAUS | rows=4 | first=2026-11-16T12:13:39Z | last=2026-11-16T12:30:38Z
+2026-11-16 16:03:32.663 +03:30 | INFO     | app.engines.audit:run_data_audit:30 - XAU_USD | XAUS_HISTORY | rows=1258 | first=2021-11-16T00:00:00Z | last=2026-11-16T00:00:00Z
+2026-11-16 16:03:32.663 +03:30 | INFO     | app.engines.audit:run_data_audit:32 - CANDLES BY SYMBOL/TIMEFRAME
+2026-11-16 16:03:32.664 +03:30 | INFO     | app.engines.audit:run_data_audit:34 - GOLD18_IRR | 1d | rows=3557 | first=2013-07-21T00:00:00Z | last=2026-11-16T00:00:00Z | samples_per_bar=1..4
+2026-11-16 16:03:32.664 +03:30 | INFO     | app.engines.audit:run_data_audit:34 - GOLD18_IRR | 1w | rows=696 | first=2013-07-15T00:00:00Z | last=2026-11-16T00:00:00Z | samples_per_bar=1..6
+2026-11-16 16:03:32.664 +03:30 | INFO     | app.engines.audit:run_data_audit:34 - USD_IRR | 1d | rows=4005 | first=2011-11-25T00:00:00Z | last=2026-11-16T00:00:00Z | samples_per_bar=1..4
+2026-11-16 16:03:32.664 +03:30 | INFO     | app.engines.audit:run_data_audit:34 - USD_IRR | 1w | rows=782 | first=2011-11-21T00:00:00Z | last=2026-11-16T00:00:00Z | samples_per_bar=1..6
+2026-11-16 16:03:32.664 +03:30 | INFO     | app.engines.audit:run_data_audit:34 - XAU_USD | 1d | rows=1258 | first=2021-11-16T00:00:00Z | last=2026-11-16T00:00:00Z | samples_per_bar=1..5
+2026-11-16 16:03:32.664 +03:30 | INFO     | app.engines.audit:run_data_audit:34 - XAU_USD | 1w | rows=262 | first=2021-11-15T00:00:00Z | last=2026-11-16T00:00:00Z | samples_per_bar=4..5
+2026-11-16 16:03:32.664 +03:30 | INFO     | app.engines.audit:run_data_audit:37 - INDICATOR VALIDITY
+2026-11-16 16:03:32.664 +03:30 | INFO     | app.engines.audit:run_data_audit:39 - GOLD18_IRR | 1d | rows=3557 | valid_RSI=3543 | valid_EMA200=3358
+2026-11-16 16:03:32.665 +03:30 | INFO     | app.engines.audit:run_data_audit:39 - GOLD18_IRR | 1w | rows=696 | valid_RSI=682 | valid_EMA200=497
+2026-11-16 16:03:32.665 +03:30 | INFO     | app.engines.audit:run_data_audit:39 - USD_IRR | 1d | rows=4005 | valid_RSI=3991 | valid_EMA200=3806
+2026-11-16 16:03:32.665 +03:30 | INFO     | app.engines.audit:run_data_audit:39 - USD_IRR | 1w | rows=782 | valid_RSI=768 | valid_EMA200=583
+2026-11-16 16:03:32.665 +03:30 | INFO     | app.engines.audit:run_data_audit:39 - XAU_USD | 1d | rows=1258 | valid_RSI=1244 | valid_EMA200=1059
+2026-11-16 16:03:32.665 +03:30 | INFO     | app.engines.audit:run_data_audit:39 - XAU_USD | 1w | rows=262 | valid_RSI=248 | valid_EMA200=63
+2026-11-16 16:03:32.665 +03:30 | INFO     | app.engines.audit:run_data_audit:41 - ========== END DATA AUDIT ==========
